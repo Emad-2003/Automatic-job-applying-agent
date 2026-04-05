@@ -1,0 +1,41 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Env files
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+*.tmp
+
+# Output
+output/
+*.pdf
+
+# LaTeX
+*.aux
+*.out
+*.toc
+*.synctex.gz
+
+# Runtime state
+jobs_applied.json
+
+# Windows artifacts
+*:Zone.Identifier
