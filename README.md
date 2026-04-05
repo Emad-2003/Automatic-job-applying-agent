@@ -1,18 +1,39 @@
 # Automatic-job-applying-agent
 
-Every 24 hours:
-│
-├── 1. Scrape Indeed + LinkedIn for new jobs
-│
-├── 2. For each new job:
-│   ├── Get/create branch: company_resume
-│   ├── Tailor ALL 3 templates (Corporate, NIT, ZeroNoise) with Gemini
-│   ├── ATS loop each until 90+ score
-│   ├── Compile all 3 → PDF via pdflatex
-│   ├── Pick highest ATS scorer as "best PDF"
-│   └── Commit all 3 to branch with job title + ATS scores
-│
-└── 3. Show confirmation prompt:
-    "Apply to SDE @ Amazon? [ATS: 94] (Corporate template) [y/n]"
-    ├── y → Playwright applies with best PDF
-    └── n → skips, marks as skipped in jobs_applied.json
+1. Scrape job listings from:
+   - Indeed
+   - LinkedIn
+
+2. Process each new job:
+   ├── Create or checkout branch: <company>_resume
+   ├── Tailor all 3 resume templates using Gemini:
+   │     - Corporate
+   │     - NIT
+   │     - ZeroNoise
+   │
+   ├── Run ATS optimization loop:
+   │     - Iterate until score ≥ 90
+   │
+   ├── Generate PDFs:
+   │     - Compile all templates using pdflatex
+   │
+   ├── Select best resume:
+   │     - Choose highest ATS scoring PDF
+   │
+   └── Commit results:
+         - All 3 resumes
+         - ATS scores
+         - Job metadata
+         - Commit message includes job title + scores
+
+3. User Confirmation Step:
+   Prompt:
+   "Apply to <Role> @ <Company>? [ATS: XX] (<Template Name>) [y/n]"
+
+   ├── If YES:
+   │     - Apply automatically using Playwright
+   │     - Upload best-scoring resume
+   │
+   └── If NO:
+         - Skip job
+         - Mark as skipped in jobs_applied.json
